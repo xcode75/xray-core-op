@@ -1,0 +1,105 @@
+on: 
+  release:
+    types:
+      - created
+
+name: xray-core
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    name: xray-core Package  
+    strategy:
+      fail-fast: false
+      matrix:
+        SDK_URL:
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/bcm47xx/mips74k/openwrt-sdk-21.02.0-rc1-bcm47xx-mips74k_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/bcm47xx/generic/openwrt-sdk-21.02.0-rc1-bcm47xx-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/bcm47xx/legacy/openwrt-sdk-21.02.0-rc1-bcm47xx-legacy_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/bcm4908/generic/openwrt-sdk-21.02.0-rc1-bcm4908-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/bcm63xx/generic/openwrt-sdk-21.02.0-rc1-bcm63xx-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/ath79/tiny/openwrt-sdk-21.02.0-rc1-ath79-tiny_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/ath79/nand/openwrt-sdk-21.02.0-rc1-ath79-nand_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/ath79/generic/openwrt-sdk-21.02.0-rc1-ath79-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/bcm27xx/bcm2708/openwrt-sdk-21.02.0-rc1-bcm27xx-bcm2708_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/bcm27xx/bcm2709/openwrt-sdk-21.02.0-rc1-bcm27xx-bcm2709_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/bcm27xx/bcm2710/openwrt-sdk-21.02.0-rc1-bcm27xx-bcm2710_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/bcm27xx/bcm2711/openwrt-sdk-21.02.0-rc1-bcm27xx-bcm2711_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/sunxi/cortexa53/openwrt-sdk-21.02.0-rc1-sunxi-cortexa53_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/sunxi/cortexa8/openwrt-sdk-21.02.0-rc1-sunxi-cortexa8_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/ramips/mt76x8/openwrt-sdk-21.02.0-rc1-ramips-mt76x8_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/ramips/mt7621/openwrt-sdk-21.02.0-rc1-ramips-mt7621_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/ramips/mt7620/openwrt-sdk-21.02.0-rc1-ramips-mt7620_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/ramips/rt305x/openwrt-sdk-21.02.0-rc1-ramips-rt305x_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/bcm53xx/generic/openwrt-sdk-21.02.0-rc1-bcm53xx-generic_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/ipq40xx/generic/openwrt-sdk-21.02.0-rc1-ipq40xx-generic_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/ipq806x/generic/openwrt-sdk-21.02.0-rc1-ipq806x-generic_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/x86/generic/openwrt-sdk-21.02.0-rc1-x86-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/x86/64/openwrt-sdk-21.02.0-rc1-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+        - https://downloads.openwrt.org/releases/21.02.0-rc1/targets/rockchip/armv8/openwrt-sdk-21.02.0-rc1-rockchip-armv8_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+    steps:
+    
+    - name: Checkout - ${{ github.ref }}
+      uses: actions/checkout@v1
+      
+    - name: Install env dependencies
+      run: |
+        sudo -E apt-get -qq update
+        sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion git-core gcc-multilib libelf-dev autoconf automake libtool libev-dev libc-ares-dev libudns-dev libncurses-dev
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean 
+    
+    - name: TAG
+      run: |
+          tag_name="${GITHUB_REF##*/}"
+          echo Tag $tag_name
+          echo "TAG_NAME=${tag_name}" >> $GITHUB_ENV
+          
+    - name: Download SDK
+      env:
+        SDK_URL: ${{ matrix.SDK_URL }}
+      run: |
+        wget -q "${SDK_URL}"
+        tar xJf openwrt-sdk-*.tar.xz -C ../
+        mv -f "${GITHUB_WORKSPACE}" ../src
+        mv ../openwrt-sdk-* "${GITHUB_WORKSPACE}"
+        
+    - name: Prepare targets
+      env:
+        REPF: ${{ github.repository }}
+        PKGN: ${{ 'xray-core' }}
+      run: |
+        REP=$(basename "${REPF}")
+        mv -vf ../src "package/${PKGN}"
+        
+    - name: Load custom configuration
+      env:
+        DEBIAN_FRONTEND: noninteractive
+        CONFIG_FILE: '.config'
+        REPF: ${{ github.repository }}
+        PKGN: ${{ 'xray-core' }}
+      run: |
+        REP=$(basename "${REPF}")
+        ./scripts/feeds update -a
+        ./scripts/feeds install golang c-ares libev libopenssl libsodium mbedtls pcre libncursesw6
+        [ -e "package/${PKGN}/${CONFIG_FILE}" ] && mv "${CONFIG}" .config
+        make defconfig
+           
+    - name: Compile Package
+      env:
+        DEBIAN_FRONTEND: noninteractive
+        PKGN: ${{ 'xray-core' }}
+      run: |
+        make package/${PKGN}/compile -j$(nproc) V=s
+        mkdir ../bin
+        find bin/ -type f -name "*${PKGN}*" | xargs -t -i mv -vf {} ../bin
+        
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+          draft: true
+          name: ${{ env.TAG_NAME }}
+          tag_name: ${{ env.TAG_NAME }}
+          files: ../bin/*.ipk
+      env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
