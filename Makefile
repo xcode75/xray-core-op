@@ -2,11 +2,11 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=xray-core
 PKG_VERSION:=1.5.2
-PKG_RELEASE:=$(AUTORELEASE)
+PKG_RELEASE:=1
 
-PKG_SOURCE:=xraycore-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/xcode75/xraycore/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=972790e2a3495fa9adccf472c8ab12898060140fac99432ef62009ccfad0b050
+PKG_SOURCE:=Xray-core-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/XTLS/xray-core/tar.gz/v$(PKG_VERSION)?
+PKG_HASH:=b687a8fd1325bee0f6352c8dc3bfb70a7ee07cd74aacaece4e36c93cf7cda417
 
 PKG_MAINTAINER:=Tianling Shen <cnsztl@immortalwrt.org>
 PKG_LICENSE:=MPL-2.0
@@ -20,8 +20,8 @@ PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-GO_PKG:=github.com/xcode75/xraycore
-GO_PKG_BUILD_PKG:=github.com/xcode75/xraycore/main
+GO_PKG:=github.com/xtls/xray-core
+GO_PKG_BUILD_PKG:=github.com/xtls/xray-core/main
 GO_PKG_LDFLAGS:=-s -w
 GO_PKG_LDFLAGS_X:= \
 	$(GO_PKG)/core.build=OpenWrt \
