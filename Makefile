@@ -4,7 +4,7 @@ PKG_NAME:=xray-core
 PKG_VERSION:=1.5.2
 PKG_RELEASE:=$(AUTORELEASE)
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=xraycore-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/xcode75/xraycore/tar.gz/v$(PKG_VERSION)?
 PKG_HASH:=972790e2a3495fa9adccf472c8ab12898060140fac99432ef62009ccfad0b050
 
