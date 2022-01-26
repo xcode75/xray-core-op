@@ -3,11 +3,11 @@ on:
     types:
       - created
 
-name: xray-core
+name: Xray-core
 jobs:
   build:
     runs-on: ubuntu-20.04
-    name: xray-core Package  
+    name: Xray-core Package  
     strategy:
       fail-fast: false
       matrix:
@@ -66,7 +66,7 @@ jobs:
     - name: Prepare targets
       env:
         REPF: ${{ github.repository }}
-        PKGN: ${{ 'xray-core' }}
+        PKGN: ${{ 'Xray-core' }}
       run: |
         REP=$(basename "${REPF}")
         mv -vf ../src "package/${PKGN}"
@@ -76,7 +76,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
         CONFIG_FILE: '.config'
         REPF: ${{ github.repository }}
-        PKGN: ${{ 'xray-core' }}
+        PKGN: ${{ 'Xray-core' }}
       run: |
         REP=$(basename "${REPF}")
         ./scripts/feeds update -a
@@ -87,7 +87,7 @@ jobs:
     - name: Compile Package
       env:
         DEBIAN_FRONTEND: noninteractive
-        PKGN: ${{ 'xray-core' }}
+        PKGN: ${{ 'Xray-core' }}
       run: |
         make package/${PKGN}/compile -j$(nproc) V=s
         mkdir ../bin
