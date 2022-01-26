@@ -20,7 +20,7 @@ PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_USE_MIPS16:=0
 
-GO_PKG:=github.com/xtls/xray-core
+GO_PKG:=github.com/xcode75/xraycore
 GO_PKG_BUILD_PKG:=github.com/xcode75/xraycore/main
 GO_PKG_LDFLAGS:=-s -w
 GO_PKG_LDFLAGS_X:= \
